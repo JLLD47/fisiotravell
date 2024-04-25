@@ -1,4 +1,5 @@
 const { checkDB, syncModels } = require("./db/index.js")
+const { addRelationsToModels } = require("./db/relations.js")
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -6,6 +7,7 @@ const morgan = require('morgan')
 async function dbConnect() {
     try {
         await checkDB()
+        addRelationsToModels()
         await syncModels()
     } catch (error) {
         console.log('error')
@@ -30,3 +32,5 @@ app.listen(port, async () => {
         console.log(error)
     }
 })
+
+
