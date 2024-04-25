@@ -1,8 +1,4 @@
 const router = require("express").Router();
-
-const { checkAuth, isAdmin } = require("../middleware/auth");
-
-const router = require("express").Router();
 const { checkAuth, checkAdmin } = require("../middleware/index");
 const {
   getAllUsers,
