@@ -13,9 +13,9 @@ const getAllExercises = async (req, res) => {
 const createExercise = async (req, res) => {
   try {
     const newExercise = await Exercise.create({
-      name: req.body.name,
+      title: req.body.title,
       description: req.body.description,
-      instructorName: req.body.instructorName,
+      videoUrl: req.body.videoUrl,
     });
     return res
       .status(200)

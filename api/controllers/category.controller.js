@@ -13,9 +13,7 @@ const getAllCategories = async (req, res) => {
 const createCategory = async (req, res) => {
   try {
     const newCategory = await Category.create({
-      name: req.body.name,
-      description: req.body.description,
-      instructorName: req.body.instructorName,
+      name: req.body.name
     });
     return res
       .status(200)
