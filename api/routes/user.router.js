@@ -5,9 +5,8 @@ const {
   getOneUser,
   getMyUser,
   createUser,
-  resetPassword,
   updateUser,
-  updateOwnProfile,
+  updateMyUser,
   deleteUser,
 } = require("../controllers/user.controller");
 
@@ -16,9 +15,8 @@ router
   .get("/profile", checkAuth, getMyUser)
   .get("/:userId", checkAuth, checkAdmin, getOneUser)
   .post("/", checkAuth, checkAdmin, createUser)
-  .patch("/profile", checkAuth, updateOwnProfile)
+  .patch("/profile", checkAuth, updateMyUser)
   .patch("/:userId", checkAuth, checkAdmin, updateUser)
-  .delete("/profile", checkAuth, deleteOwnProfile)
   .delete("/:userId", checkAuth, checkAdmin, deleteUser);
 
 module.exports = router;
