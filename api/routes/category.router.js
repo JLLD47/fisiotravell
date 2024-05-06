@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { checkAuth, checkAdmin } = require("../middleware/index");
+const { checkAuth, isAdmin } = require("../middleware/auth");
 const {
   getAllCategories,
   createCategory,
@@ -9,8 +9,8 @@ const {
 
 router
 .get('/', getAllCategories)
-.post('/', checkAuth, checkAdmin, createCategory)
-.patch('/:categoryId',checkAuth, checkAdmin, updateCategory)
-.delete('/:categoryId', checkAuth, checkAdmin,deleteCategory)
+.post('/', checkAuth, isAdmin, createCategory)
+.patch('/:categoryId',checkAuth, isAdmin, updateCategory)
+.delete('/:categoryId', checkAuth, isAdmin,deleteCategory)
 
 module.exports = router

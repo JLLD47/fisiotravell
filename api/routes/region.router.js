@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { checkAuth, checkAdmin } = require("../middleware/index");
+const { checkAuth, isAdmin } = require("../middleware/auth");
 const {
   getAllRegions,
   createRegion,
@@ -9,8 +9,8 @@ const {
 
 router
   .get("/", getAllRegions)
-  .post("/", checkAuth, checkAdmin, createRegion)
-  .patch("/:regionId", checkAuth, checkAdmin, updateRegion)
-  .delete("/:regionId", checkAuth, checkAdmin, deleteRegion);
+  .post("/", checkAuth, isAdmin, createRegion)
+  .patch("/:regionId", checkAuth, isAdmin, updateRegion)
+  .delete("/:regionId", checkAuth, isAdmin, deleteRegion);
 
 module.exports = router;

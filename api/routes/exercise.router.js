@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { checkAuth, checkAdmin } = require("../middleware/index");
+const { checkAuth, isAdmin } = require("../middleware/auth");
 const {
   getAllExercises,
   createExercise,
@@ -9,8 +9,8 @@ const {
 
 router
 .get('/', getAllExercises)
-.post('/', checkAuth, checkAdmin, createExercise)
-.patch('/:exerciseId',checkAuth, checkAdmin, updateExercise)
-.delete('/:exerciseId', checkAuth, checkAdmin,deleteExercise)
+.post('/', checkAuth, isAdmin, createExercise)
+.patch('/:exerciseId',checkAuth, isAdmin, updateExercise)
+.delete('/:exerciseId', checkAuth, isAdmin,deleteExercise)
 
 module.exports = router

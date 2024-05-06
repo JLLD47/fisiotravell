@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { checkAuth, checkAdmin } = require("../middleware/index");
+const { checkAuth, isAdmin } = require("../middleware/auth");
 const {
   getAllUsers,
   getOneUser,
@@ -8,15 +8,15 @@ const {
   updateUser,
   updateMyUser,
   deleteUser,
-} = require("../controllers/user.controller");
+} = require("../controllers/user.controller.js");
 
 router
-  .get("/", checkAuth, checkAdmin, getAllUsers)
+  .get("/", checkAuth, isAdmin, getAllUsers)
   .get("/profile", checkAuth, getMyUser)
-  .get("/:userId", checkAuth, checkAdmin, getOneUser)
-  .post("/", checkAuth, checkAdmin, createUser)
+  .get("/:userId", checkAuth, isAdmin, getOneUser)
+  .post("/", checkAuth, isAdmin, createUser)
   .patch("/profile", checkAuth, updateMyUser)
-  .patch("/:userId", checkAuth, checkAdmin, updateUser)
-  .delete("/:userId", checkAuth, checkAdmin, deleteUser);
+  .patch("/:userId", checkAuth, isAdmin, updateUser)
+  .delete("/:userId", checkAuth, isAdmin, deleteUser);
 
 module.exports = router;
