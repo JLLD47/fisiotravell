@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { checkAuth, isAdmin } = require("../middleware/auth");
+const { checkAuth, isAdmin } = require("../middleware/auth.js");
 const {
   getAllRoutines,
   createRoutine,
