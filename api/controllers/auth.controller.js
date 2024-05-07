@@ -5,12 +5,6 @@ const User = require("../models/user.model");
 const signUp = async (req, res) => {
   try {
     const { name, lastname, email, password, phone } = req.body;
-    const checkUser = await User.findOne({ where: { email: email } });
-
-    if (checkUser)
-      return res.status(403).json({
-        message: ">> Email exists!",
-      });
 
     const hashedPassword = bcrypt.hashSync(password, 10);
 
@@ -28,7 +22,7 @@ const signUp = async (req, res) => {
 
     delete newUser.password;
 
-    return res.status(200).json({ message: ">> Sign up!!" });
+    return res.status(200).json({ message: ">> Sign up!!", token, newUser });
   } catch (error) {
     console.log(error);
     return res.status(404).send(">> Oops something went wrong!");
@@ -50,7 +44,7 @@ const logIn = async (req, res) => {
             { expiresIn: "1y" }
           );
 
-          return res.status(200).json({ token });
+          return res.status(200).json({ token, newUser });
         }
         return res
           .status(404)

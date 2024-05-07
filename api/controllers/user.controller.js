@@ -40,7 +40,7 @@ const getOneUser = async (req, res) => {
       });
 
       if (!user) {
-        console.log(req.params.id)
+        console.log(req.params.id);
         return res.status(404).send("User not found");
       }
 
@@ -157,6 +157,20 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const getUserByToken = async (req, res) => {
+  try {
+    const userJSON = res.locals.user.toJSON();
+    delete userJSON.password;
+
+    return res.status(200).json({ user: userJSON });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error searching user",
+      description: error.message,
+    });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getOneUser,
@@ -165,4 +179,5 @@ module.exports = {
   updateUser,
   updateMyUser,
   deleteUser,
+  getUserByToken
 };
