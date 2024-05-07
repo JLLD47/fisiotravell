@@ -10,6 +10,43 @@ const getAllRoutines = async (req, res) => {
   }
 };
 
+
+const getOneRoutine = async (req,res) => {
+  try {
+
+      const routine = await Routine.findByPk(req.params.routineId)
+      if(routine){
+          return res.status(200).json(routine)
+      } else {
+          return res.status(404).send('Routine not found')
+      }
+
+  } catch (error) {
+      console.log(error)
+  return res.status(500).json({message: "Something went wrong"})
+  }
+}
+
+const getMyRoutines = async (req, res) => {
+  try {
+    const userId = res.locals.user.id;
+
+    if (!userId) {
+      return res.status(403).json({ message: 'User ID needed' });
+    }
+
+    const routines = await Routine.findAll({
+      where: { userId: userId }
+    });
+
+    res.status(200).json(routines);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving user routines', error: error.message });
+  }
+};
+
+
+
 const createRoutine = async (req, res) => {
   try {
     const newRoutine = await Routine.create({
@@ -64,7 +101,9 @@ const deleteRoutine = async (req, res) => {
 
 module.exports = {
   getAllRoutines,
+  getOneRoutine,
+  getMyRoutines,
   createRoutine,
   updateRoutine,
   deleteRoutine,
-};
+  };

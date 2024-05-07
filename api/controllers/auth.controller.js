@@ -44,7 +44,7 @@ const logIn = async (req, res) => {
             { expiresIn: "1y" }
           );
 
-          return res.status(200).json({ token, newUser });
+          return res.status(200).json({ token, user });
         }
         return res
           .status(404)
