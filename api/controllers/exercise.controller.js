@@ -10,6 +10,7 @@ const getAllExercises = async (req, res) => {
   }
 };
 
+
 const createExercise = async (req, res) => {
   try {
     const newExercise = await Exercise.create({

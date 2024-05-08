@@ -30,7 +30,8 @@ const getOneRoutine = async (req,res) => {
 const getMyRoutines = async (req, res) => {
   try {
     const userId = res.locals.user.id;
-
+    console.log(userId)
+   
     if (!userId) {
       return res.status(403).json({ message: 'User ID needed' });
     }
@@ -48,9 +49,11 @@ const getMyRoutines = async (req, res) => {
 
 
 const createRoutine = async (req, res) => {
+  console.log(res.locals)
   try {
     const newRoutine = await Routine.create({
       date: req.body.date,
+      userId: res.locals.user.id
     });
     return res
       .status(200)
