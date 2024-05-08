@@ -1,12 +1,48 @@
-const ExerciseRoutine = require("../models/exerciseRoutine.model");
+const Exercise = require("../models/exercise.model");
+const Routine = require("../models/routine.model");
+const ExerciseRoutine = require("../models/exercise-routine.model");
 
 const getAllExerciseRoutines = async (req, res) => {
   try {
-    const exerciseRoutine = await ExerciseRoutine.findAll();
-    return res.status(200).json(exerciseRoutine);
+    const routines = await Routine.findAll({
+      include: [{
+        model: Exercise,
+        as: 'exercises',
+        attributes: ['title', 'description', 'videoUrl'],
+        through: {
+          attributes: ["duration", "lapse", "series", "observations"] 
+        }
+      }]
+    });
+    res.status(200).json(routines);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: 'Error accessing exercise routines', error: error.message });
+  }
+};
+
+
+const getMyExerciseRoutines = async (req, res) => {
+  try {
+    const userId = res.locals.user.id;
+
+    if (!userId) {
+      return res.status(403).json({ message: 'User ID not provided' });
+    }
+
+    const exRoutines = await Routine.findAll({
+      where: { userId: userId },
+      include: [{
+        model: Exercise,
+        as: 'exercises',
+        attributes: ['title', 'description', 'videoUrl'],
+        through: {
+          attributes: ["duration", "lapse", "series", "observations"] 
+        }
+      }]
+    });
+    res.status(200).json(exRoutines);
+  } catch (error) {
+    res.status(500).json({ message: 'Error accessing exercise routines', error: error.message });
   }
 };
 
@@ -66,6 +102,7 @@ const deleteExerciseRoutine = async (req, res) => {
 
 module.exports = {
   getAllExerciseRoutines,
+  getMyExerciseRoutines,
   createExerciseRoutine,
   updateExerciseRoutine,
   deleteExerciseRoutine,

@@ -19,6 +19,7 @@ function addRelationsToModels() {
     onDelete: "cascade",
     onUpdate: "cascade",
     timestamps: false,
+    as:"exercises"
   });
 
   Exercise.belongsToMany(Routine, {
@@ -27,6 +28,7 @@ function addRelationsToModels() {
     onDelete: "cascade",
     onUpdate: "cascade",
     timestamps: false,
+    as:"routines"
   });
 
   //MANY TO MANY

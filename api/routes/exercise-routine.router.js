@@ -2,15 +2,17 @@ const router = require("express").Router();
 const { checkAuth, isAdmin } = require("../middleware/auth");
 const {
   getAllExerciseRoutines,
-  createExercise,
-  updateExercise,
-  deleteExercise,
-} = require("../controllers/exercise.controller.js");
+  getMyExerciseRoutines,
+  createExerciseRoutine,
+  updateExerciseRoutine,
+  deleteExerciseRoutine,
+} = require("../controllers/exercise-routine.controller.js");
 
 router
-.get('/', getAllExerciseRoutines)
-.post('/', checkAuth, isAdmin, createExercise)
-.patch('/:exerciseId',checkAuth, isAdmin, updateExercise)
-.delete('/:exerciseId', checkAuth, isAdmin,deleteExercise)
+.get('/', checkAuth, getAllExerciseRoutines )
+.get('/myExRoutines', checkAuth, getMyExerciseRoutines)
+.post('/', checkAuth, isAdmin, createExerciseRoutine)
+.patch('/:exerciseId',checkAuth, isAdmin, updateExerciseRoutine)
+.delete('/:exerciseId', checkAuth, isAdmin,deleteExerciseRoutine)
 
 module.exports = router
