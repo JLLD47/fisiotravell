@@ -50,7 +50,9 @@ const getMyExerciseRoutines = async (req, res) => {
 const getOneUserRoutineExercise = async (req, res) => {
   if (res.locals.user.role === "admin") {
     try {
-      const user = await Routine.findByPk(req.params.id, {
+      const user = await Routine.findAll( {
+        where: { userId: req.params.id }  ,
+        
         include: [{
           model: Exercise,
           as: 'exercises',
