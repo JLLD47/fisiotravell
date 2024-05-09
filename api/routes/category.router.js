@@ -10,7 +10,7 @@ const {
 router
 .get('/', getAllCategories)
 .post('/', checkAuth, isAdmin, createCategory)
-.patch('/:categoryId',checkAuth, isAdmin, updateCategory)
-.delete('/:categoryId', checkAuth, isAdmin,deleteCategory)
+.patch('/:id',checkAuth, isAdmin, updateCategory)
+.delete('/:id', checkAuth, isAdmin,deleteCategory)
 
 module.exports = router

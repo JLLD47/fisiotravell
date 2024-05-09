@@ -10,7 +10,7 @@ const {
 router
 .get('/', getAllExercises)
 .post('/', checkAuth, isAdmin, createExercise)
-.patch('/:exerciseId',checkAuth, isAdmin, updateExercise)
-.delete('/:exerciseId', checkAuth, isAdmin,deleteExercise)
+.patch('/:id',checkAuth, isAdmin, updateExercise)
+.delete('/:id', checkAuth, isAdmin,deleteExercise)
 
 module.exports = router

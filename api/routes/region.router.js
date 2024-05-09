@@ -10,7 +10,7 @@ const {
 router
   .get("/", getAllRegions)
   .post("/", checkAuth, isAdmin, createRegion)
-  .patch("/:regionId", checkAuth, isAdmin, updateRegion)
-  .delete("/:regionId", checkAuth, isAdmin, deleteRegion);
+  .patch("/:id", checkAuth, isAdmin, updateRegion)
+  .delete("/:id", checkAuth, isAdmin, deleteRegion);
 
 module.exports = router;

@@ -12,9 +12,9 @@ const {
 router
   .get("/", getAllRoutines)
   .get("/myRoutine", checkAuth, getMyRoutines)
-  .get("/:routineId", checkAuth , isAdmin, getOneRoutine)
+  .get("/:id", checkAuth , isAdmin, getOneRoutine)
   .post("/", checkAuth, isAdmin, createRoutine)
-  .patch("/:routineId", checkAuth, isAdmin, updateRoutine)
-  .delete("/:routineId", checkAuth, isAdmin, deleteRoutine);
+  .patch("/:id", checkAuth, isAdmin, updateRoutine)
+  .delete("/:id", checkAuth, isAdmin, deleteRoutine);
 
 module.exports = router;

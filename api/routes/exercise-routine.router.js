@@ -12,7 +12,7 @@ router
 .get('/', checkAuth, getAllExerciseRoutines )
 .get('/myExRoutines', checkAuth, getMyExerciseRoutines)
 .post('/', checkAuth, isAdmin, createExerciseRoutine)
-.patch('/:exerciseId',checkAuth, isAdmin, updateExerciseRoutine)
-.delete('/:exerciseId', checkAuth, isAdmin,deleteExerciseRoutine)
+.patch('/:id',checkAuth, isAdmin, updateExerciseRoutine)
+.delete('/:id', checkAuth, isAdmin,deleteExerciseRoutine)
 
 module.exports = router

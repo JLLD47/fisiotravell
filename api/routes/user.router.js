@@ -15,10 +15,10 @@ router
   .get("/", checkAuth, isAdmin, getAllUsers)
   .get("/profile", checkAuth, getMyUser)
   .get("/token", checkAuth, getUserByToken)
-  .get("/:userId", checkAuth, isAdmin, getOneUser)
+  .get("/:id", checkAuth, isAdmin, getOneUser)
   .post("/", checkAuth, isAdmin, createUser)
   .patch("/profile", checkAuth, updateMyUser)
-  .patch("/:userId", checkAuth, isAdmin, updateUser)
-  .delete("/:userId", checkAuth, isAdmin, deleteUser);
+  .patch("/:id", checkAuth, isAdmin, updateUser)
+  .delete("/:id", checkAuth, isAdmin, deleteUser);
 
 module.exports = router;
