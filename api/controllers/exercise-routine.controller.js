@@ -46,6 +46,63 @@ const getMyExerciseRoutines = async (req, res) => {
   }
 };
 
+
+const getOneUserRoutineExercise = async (req, res) => {
+  if (res.locals.user.role === "admin") {
+    try {
+      const user = await Routine.findByPk(req.params.id, {
+        include: [{
+          model: Exercise,
+          as: 'exercises',
+          attributes: ['title', 'description', 'videoUrl'],
+          through: {
+            attributes: ["duration", "lapse", "series", "observations"] }
+        }],
+      });
+
+      if (!user) {
+        console.log(req.params.id);
+        return res.status(404).send("User not found");
+      }
+
+      return res.status(200).json(user);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    try {
+      const user = await User.findByPk(req.params.id, {
+        attributes: {
+          exclude: ["password"],
+        },
+      });
+
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      return res.status(200).json(user);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const createExerciseRoutine = async (req, res) => {
   try {
     const newExerciseRoutine = await ExerciseRoutine.create({
@@ -103,6 +160,7 @@ const deleteExerciseRoutine = async (req, res) => {
 module.exports = {
   getAllExerciseRoutines,
   getMyExerciseRoutines,
+  getOneUserRoutineExercise,
   createExerciseRoutine,
   updateExerciseRoutine,
   deleteExerciseRoutine,

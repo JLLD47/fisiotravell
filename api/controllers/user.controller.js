@@ -33,7 +33,7 @@ const getAllUsers = async (req, res) => {
 const getOneUser = async (req, res) => {
   if (res.locals.user.role === "admin") {
     try {
-      const user = await User.findByPk(req.params.userId, {
+      const user = await User.findByPk(req.params.id, {
         attributes: {
           exclude: ["password"],
         },
@@ -50,7 +50,7 @@ const getOneUser = async (req, res) => {
     }
   } else {
     try {
-      const user = await User.findByPk(req.params.userId, {
+      const user = await User.findByPk(req.params.id, {
         attributes: {
           exclude: ["password"],
         },

@@ -3,6 +3,7 @@ const { checkAuth, isAdmin } = require("../middleware/auth");
 const {
   getAllExerciseRoutines,
   getMyExerciseRoutines,
+  getOneUserRoutineExercise,
   createExerciseRoutine,
   updateExerciseRoutine,
   deleteExerciseRoutine,
@@ -11,6 +12,7 @@ const {
 router
 .get('/', checkAuth, getAllExerciseRoutines )
 .get('/myExRoutines', checkAuth, getMyExerciseRoutines)
+.get('/userExRoutines/:id', checkAuth, isAdmin, getOneUserRoutineExercise)
 .post('/', checkAuth, isAdmin, createExerciseRoutine)
 .patch('/:id',checkAuth, isAdmin, updateExerciseRoutine)
 .delete('/:id', checkAuth, isAdmin,deleteExerciseRoutine)
