@@ -91,35 +91,38 @@ const getOneUserRoutineExercise = async (req, res) => {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const createExerciseRoutine = async (req, res) => {
   try {
-    const newExerciseRoutine = await ExerciseRoutine.create({
-      title: req.body.title,
-      description: req.body.description,
-      videoUrl: req.body.videoUrl,
-    });
+    const userId = req.params.id;
+    const { date , exercises } = req.body;
+    const newExRoutine = await Routine.create({ date, userId });
+
+    for (const exercise of exercises) {
+      const exerciseObj = await Exercise.findByPk(exercise.exerciseId); 
+      if (exerciseObj) {
+        await ExerciseRoutine.create({
+          routineId: newExRoutine.id,
+          exerciseId: exerciseObj.id,
+          duration: exercise.duration,
+          lapse: exercise.lapse,
+          observations: exercise.observations,
+          series: exercise.series,
+
+        });
+      } else {
+        console.error(`Not found exercise with ID ${exercise.exerciseId}`); 
+      }
+    }
+
     return res
       .status(200)
-      .json({ message: "Here it is your new ExerciseRoutine", newExerciseRoutine });
+      .json({ message: "Here it is your new ExerciseRoutine", newExRoutine });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Something went wrong" });
   }
-};
+}
+
 
 const updateExerciseRoutine = async (req, res) => {
   try {
